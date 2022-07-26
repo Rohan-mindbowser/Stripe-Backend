@@ -1,3 +1,5 @@
+const stripeProductModels = require("../models/stripeProductModel");
+
 module.exports = {
   stripeCheckout: async (req, res, next) => {
     try {
@@ -30,6 +32,18 @@ module.exports = {
       });
       //   console.log(session);
       res.send(session.url);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+  getProduct: async (req, res, next) => {
+    try {
+      const products = await stripeProductModels.find({});
+      if (products) {
+        res.status(200).send(products);
+      } else {
+        throw error;
+      }
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

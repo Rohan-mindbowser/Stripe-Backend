@@ -10,6 +10,14 @@ const bodyParser = require("body-parser");
 
 const cors = require("cors");
 
+//Importing DB connection
+const connection = require("./config/dbConnection");
+
+//Checking DB connection here
+connection.once("open", function () {
+  console.log("MongoDB database connection established successfully");
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Middleware to use json data
