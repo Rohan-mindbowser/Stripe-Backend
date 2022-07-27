@@ -8,8 +8,7 @@ router.post("/checkout", product_controller.stripeCheckout);
 router.get("/getproducts", product_controller.getProduct);
 
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret =
-  "whsec_97bc81570a3b23e01eded64f58a0facdaa469d67b83c8fac2b7b3e381cb28914";
+const endpointSecret = process.env.STRIPE_ENDPOINT;
 
 router.post(
   "/webhook",
