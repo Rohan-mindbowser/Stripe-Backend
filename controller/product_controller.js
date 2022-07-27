@@ -1,5 +1,9 @@
 const stripeProductModels = require("../models/stripeProductModel");
 
+require("dotenv").config();
+
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+
 module.exports = {
   stripeCheckout: async (req, res, next) => {
     try {
@@ -9,19 +13,12 @@ module.exports = {
             price_data: {
               currency: "inr",
               product_data: {
-                name: "T-shirt",
+                name: "New Apple Airpods (3rd Generation)",
+                images: [
+                  "https://m.media-amazon.com/images/I/615ekapl+pL._SL1500_.jpg",
+                ],
               },
-              unit_amount: 40000,
-            },
-            quantity: 2,
-          },
-          {
-            price_data: {
-              currency: "inr",
-              product_data: {
-                name: "Levis T-shirt",
-              },
-              unit_amount: 40000,
+              unit_amount: 29900,
             },
             quantity: 1,
           },

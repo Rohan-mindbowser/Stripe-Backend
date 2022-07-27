@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 
-require("dotenv").config();
 const PORT = process.env.PORT || 5000;
+require("dotenv").config();
 
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
@@ -25,6 +25,10 @@ app.use(bodyParser.json());
 
 //Imported product routes
 const productRoutes = require("./routes/product_route");
+
+
+
+
 
 //Cors middleware
 app.use(
