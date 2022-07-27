@@ -14,30 +14,22 @@ router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
   (request, response) => {
-    console.log(request.body);
-    const sig = request.headers["stripe-signature"];
+    // console.log("After payment :",request.body.data.object);
+    let data = request.body.data.object;
 
-    let event;
-
-    try {
-      event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
-    } catch (err) {
-      response.status(400).send(`Webhook Error: ${err.message}`);
-      return;
+    // console.log("***************************************");
+    if (data.object === "charge") {
+      console.log(data.amount);
+      console.log(data.billing_details.email);
+      console.log(data.billing_details.name);
+      console.log(data.currency);
+      console.log(data.customer);
+      console.log(data.currency);
+      console.log(data.payment_intent);
+      console.log(data.payment_method_details.type);
+      console.log(data.status);
     }
 
-    // Handle the event
-    switch (event.type) {
-      case "payment_intent.succeeded":
-        const paymentIntent = event.data.object;
-        // Then define and call a function to handle the event payment_intent.succeeded
-        break;
-      // ... handle other event types
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
-
-    // Return a 200 response to acknowledge receipt of the event
     response.send();
   }
 );

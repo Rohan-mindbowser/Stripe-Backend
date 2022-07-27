@@ -20,7 +20,7 @@ module.exports = {
               },
               unit_amount: 29900,
             },
-            quantity: 1,
+            quantity: req.body.quantity,
           },
         ],
         mode: "payment",
