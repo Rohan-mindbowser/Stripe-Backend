@@ -45,4 +45,23 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+  stripePayment: (request, response) => {
+    try {
+      let data = request.body.data.object;
+      if (data.object === "charge") {
+        console.log(data.amount);
+        console.log(data.billing_details.email);
+        console.log(data.billing_details.name);
+        console.log(data.currency);
+        console.log(data.customer);
+        console.log(data.currency);
+        console.log(data.payment_intent);
+        console.log(data.payment_method_details.type);
+        console.log(data.status);
+      }
+      response.send();
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };

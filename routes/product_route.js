@@ -13,25 +13,7 @@ const endpointSecret = process.env.STRIPE_ENDPOINT;
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (request, response) => {
-    // console.log("After payment :",request.body.data.object);
-    let data = request.body.data.object;
-
-    // console.log("***************************************");
-    if (data.object === "charge") {
-      console.log(data.amount);
-      console.log(data.billing_details.email);
-      console.log(data.billing_details.name);
-      console.log(data.currency);
-      console.log(data.customer);
-      console.log(data.currency);
-      console.log(data.payment_intent);
-      console.log(data.payment_method_details.type);
-      console.log(data.status);
-    }
-
-    response.send();
-  }
+  product_controller.stripePayment
 );
 
 //Exporting routes
