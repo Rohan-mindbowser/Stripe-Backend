@@ -10,6 +10,7 @@ router.get("/getproducts", product_controller.getProduct);
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
 const endpointSecret = process.env.STRIPE_ENDPOINT;
 
+//Stripe webhook for saving payment details in DB
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),

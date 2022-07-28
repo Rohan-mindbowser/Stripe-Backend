@@ -1,8 +1,28 @@
 const stripeProductModels = require("../models/stripeProductModel");
+const stripePaymentModel = require("../models/stripePaymentModel");
 
 require("dotenv").config();
 
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+
+//Saving payment details in DB
+const savePaymentDetails = async (paymentDetails) => {
+  try {
+    const paymentDetail = await stripePaymentModel.create({
+      customer_id: paymentDetails.customer,
+      customer_name: paymentDetails.customer_details.name,
+      email: paymentDetails.customer_details.email,
+      payment_intent: paymentDetails.payment_intent,
+      payment_method_type: paymentDetails.payment_method_types[0],
+      curreny: paymentDetails.currency,
+      amount: paymentDetails.amount_total,
+      payment_status: paymentDetails.status,
+    });
+    await paymentDetail.save();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 module.exports = {
   stripeCheckout: async (req, res, next) => {
@@ -47,21 +67,18 @@ module.exports = {
   },
   stripePayment: (request, response) => {
     try {
-      let data = request.body.data.object;
-      if (data.object === "charge") {
-        console.log(data.amount);
-        console.log(data.billing_details.email);
-        console.log(data.billing_details.name);
-        console.log(data.currency);
-        console.log(data.customer);
-        console.log(data.currency);
-        console.log(data.payment_intent);
-        console.log(data.payment_method_details.type);
-        console.log(data.status);
+      let eventType = request.body.type;
+
+      if (eventType === "checkout.session.completed") {
+        let paymentDetails = request.body.data.object;
+
+        console.log(paymentDetails);
+        savePaymentDetails(paymentDetails);
       }
-      response.send();
+
+      response.send().end();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      response.status(500).json({ error: error.message });
     }
   },
 };

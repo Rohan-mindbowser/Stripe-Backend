@@ -10,6 +10,7 @@ let payment = new Schema({
   curreny: String,
   amount: Number,
   payment_status: String,
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("stripe_payments", payment);
