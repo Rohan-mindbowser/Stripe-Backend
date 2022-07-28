@@ -44,8 +44,8 @@ module.exports = {
           },
         ],
         mode: "payment",
-        success_url: "https://www.google.com/",
-        cancel_url: "https://github.com/",
+        success_url: "http://localhost:4200/success",
+        cancel_url: "http://localhost:4200/",
       });
       //   console.log(session);
       res.send(session.url);
@@ -71,8 +71,6 @@ module.exports = {
 
       if (eventType === "checkout.session.completed") {
         let paymentDetails = request.body.data.object;
-
-        console.log(paymentDetails);
         savePaymentDetails(paymentDetails);
       }
 
