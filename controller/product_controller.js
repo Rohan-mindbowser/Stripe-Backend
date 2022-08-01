@@ -20,7 +20,7 @@ const savePaymentDetails = async (paymentDetails) => {
     });
     await paymentDetail.save();
   } catch (error) {
-    console.log(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -47,7 +47,6 @@ module.exports = {
         success_url: "http://localhost:4200/success",
         cancel_url: "http://localhost:4200/",
       });
-      //   console.log(session);
       res.send(session.url);
     } catch (error) {
       res.status(500).json({ error: error.message });
