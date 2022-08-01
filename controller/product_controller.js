@@ -80,3 +80,7 @@ module.exports = {
     }
   },
 };
+
+// ./stripe listen --forward-to localhost:5000/product/webhook
+
+// ./stripe trigger payment_intent.succeeded
