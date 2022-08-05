@@ -33,12 +33,10 @@ module.exports = {
             price_data: {
               currency: "inr",
               product_data: {
-                name: "New Apple Airpods (3rd Generation)",
-                images: [
-                  "https://m.media-amazon.com/images/I/615ekapl+pL._SL1500_.jpg",
-                ],
+                name: req.body.product_details.product_name,
+                images: [req.body.product_details.images[0]],
               },
-              unit_amount: 29900,
+              unit_amount: req.body.product_details.price,
             },
             quantity: req.body.quantity,
           },
