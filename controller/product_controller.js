@@ -36,7 +36,7 @@ module.exports = {
                 name: req.body.product_details.product_name,
                 images: [req.body.product_details.images[0]],
               },
-              unit_amount: req.body.product_details.price,
+              unit_amount: req.body.product_details.price * 100,
             },
             quantity: req.body.quantity,
           },
