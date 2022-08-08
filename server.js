@@ -39,3 +39,6 @@ app.use("/product", productRoutes);
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}..`);
 });
+
+
+module.exports = app;
