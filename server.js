@@ -40,5 +40,5 @@ app.listen(PORT, () => {
   console.log(`Running on port ${PORT}..`);
 });
 
-
+//Exporting app for using it in test files
 module.exports = app;
